@@ -28,8 +28,8 @@ DARK_GRAY = (50, 50, 50)
 # 设置参数
 PLAYER_TOWER_POS = (50, SCREEN_HEIGHT // 2)
 ENEMY_TOWER_POS = (SCREEN_WIDTH - 50, SCREEN_HEIGHT // 2)
-PLAYER_TOWER_HEALTH = 300
-ENEMY_TOWER_HEALTH = 300
+PLAYER_TOWER_HEALTH = 1500  # 将我方城堡的血量增加到 1500
+ENEMY_TOWER_HEALTH = 1500   # 将敌方城堡的血量增加到 1500
 GOLD = 100
 GOLD_INCREASE_RATE = 10
 GOLD_INCREASE_FREQUENCY = 100
@@ -140,17 +140,15 @@ all_sprites = pygame.sprite.Group()
 player_units = pygame.sprite.Group()
 enemy_units = pygame.sprite.Group()
 
-# 创建双方塔防
+# 创建我方和敌方塔
 player_tower = Tower(*PLAYER_TOWER_POS, BLUE, PLAYER_TOWER_HEALTH, PLAYER_TOWER_HEALTH)
 enemy_tower = Tower(*ENEMY_TOWER_POS, RED, ENEMY_TOWER_HEALTH, ENEMY_TOWER_HEALTH)
 all_sprites.add(player_tower)
 all_sprites.add(enemy_tower)
 
-# 计时器生成事件
 pygame.time.set_timer(pygame.USEREVENT, SPAWN_FREQUENCY)
 pygame.time.set_timer(pygame.USEREVENT + 1, GOLD_INCREASE_FREQUENCY)
 
-# 时钟设置
 clock = pygame.time.Clock()
 
 game_over = False
