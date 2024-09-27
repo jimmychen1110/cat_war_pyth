@@ -140,14 +140,17 @@ all_sprites = pygame.sprite.Group()
 player_units = pygame.sprite.Group()
 enemy_units = pygame.sprite.Group()
 
+# 创建双方塔防
 player_tower = Tower(*PLAYER_TOWER_POS, BLUE, PLAYER_TOWER_HEALTH, PLAYER_TOWER_HEALTH)
 enemy_tower = Tower(*ENEMY_TOWER_POS, RED, ENEMY_TOWER_HEALTH, ENEMY_TOWER_HEALTH)
 all_sprites.add(player_tower)
 all_sprites.add(enemy_tower)
 
+# 计时器生成事件
 pygame.time.set_timer(pygame.USEREVENT, SPAWN_FREQUENCY)
 pygame.time.set_timer(pygame.USEREVENT + 1, GOLD_INCREASE_FREQUENCY)
 
+# 时钟设置
 clock = pygame.time.Clock()
 
 game_over = False
@@ -177,7 +180,7 @@ while running:
                     )
                     all_sprites.add(new_unit)
                     player_units.add(new_unit)
-        elif event.type == pygame.USEREVENT:
+        elif not game_over and event.type == pygame.USEREVENT:
             unit_index = random.randint(0, 5)
             enemy_unit = Unit(
                 ENEMY_TOWER_POS[0] - 50,
@@ -191,7 +194,7 @@ while running:
             )
             all_sprites.add(enemy_unit)
             enemy_units.add(enemy_unit)
-        elif event.type == pygame.USEREVENT + 1:
+        elif not game_over and event.type == pygame.USEREVENT + 1:
             GOLD += GOLD_INCREASE_RATE
 
     if not game_over:
